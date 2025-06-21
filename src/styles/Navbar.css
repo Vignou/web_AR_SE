@@ -1,0 +1,28 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: #add8e6; /* Light blue */
+}
+
+.navbar.open {
+  height: auto;
+}
+
+.navbar ul {
+  background-color: #add8e6;
+}
+
+/* Style links to look like buttons */
+.navbar ul li a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none; /* Remove default underline */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Change button-like styles on hover */
+.navbar ul li a:hover {
+  background-color: #87ceeb; /* Lighter blue on hover */
+  color: white; /* White text color on hover */
+}
