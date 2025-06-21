@@ -78,8 +78,9 @@ const ARObjectHeroSection = () => {
 
             <div className="max-w-3xl text-center mx-auto">
               <p className="text-lg text-gray-400">
-                Preline is a large open-source project, crafted with Tailwind
-                CSS framework by Hmlstream.
+                This area contains all of your location-based AR experiences and
+                features, providing you with an immersive and interactive
+                environment.
               </p>
             </div>
 
