@@ -257,7 +257,7 @@ const CreateARSectionBeta4 = () => {
                   className="w-full bg-white rounded border border-gray-300 py-1 px-3"
                 />
               </div>
-              {/* <div className="relative mb-4">
+              <div className="relative mb-4">
                 <label
                   htmlFor="altitude"
                   className="leading-7 text-sm text-gray-600"
@@ -271,7 +271,7 @@ const CreateARSectionBeta4 = () => {
                   onChange={(e) => setAltitude(e.target.value)}
                   className="w-full bg-white rounded border border-gray-300 py-1 px-3"
                 />
-              </div> */}
+              </div>
               {/* <div className="relative mb-4">
                 <label
                   htmlFor="color"

@@ -69,13 +69,9 @@ function Navbar() {
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Flowbite Logo"
-            />
+            <img src="/app icon.png" className="h-10" alt="AR-ITE" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">
-              AR-Test
+              Geo-ITE
             </span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
