@@ -23,7 +23,7 @@ const AboutDevelopersSection = () => {
       role: "Unity & AR Developer",
       description:
         "He is an expert in game development and AR prototyping. His focus is on performance optimization and integrating cutting-edge AR features into projects.",
-      imageUrl: "https://ibb.co/https://i.ibb.co/Fb4XG6FR/MG-8647.jpg", // Placeholder image URL
+      imageUrl: "https://i.ibb.co/Fb4XG6FR/MG-8647.jpg", // Placeholder image URL
     },
   ];
 
