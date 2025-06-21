@@ -358,7 +358,7 @@ const BalloonsItemsSection = () => {
           </section>
 
           {/* --- AR Markers Section --- */}
-          <h1 className="text-5xl font-extrabold text-center mt-16 mb-12 pb-4 border-b-4 border-green-700 text-green-700 mx-auto max-w-4xl">
+          {/* <h1 className="text-5xl font-extrabold text-center mt-16 mb-12 pb-4 border-b-4 border-green-700 text-green-700 mx-auto max-w-4xl">
             Your AR Markers
           </h1>
           <section
@@ -423,7 +423,7 @@ const BalloonsItemsSection = () => {
                 </p>
               </div>
             )}
-          </section>
+          </section> */}
         </>
       ) : (
         <div className="col-span-full text-center py-20 min-h-[500px] flex flex-col justify-center items-center">
