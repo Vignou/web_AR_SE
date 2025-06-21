@@ -107,7 +107,7 @@ const CreateARSectionBeta4 = () => {
         // Changed from balloon_id to geoite_id
         geoite_id: geoiteId,
         //balloon_string_length: 1.0,
-        geoite_length: 1.0,
+        geoite_string_length: 1.0,
         color: color,
         created: timestamp,
         geohash: null,
