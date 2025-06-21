@@ -16,14 +16,14 @@ const AboutDevelopersSection = () => {
       role: "Unity & AR Developer",
       description:
         "Pisetha specializes in creating immersive augmented reality experiences and interactive 3D applications using Unity. He loves pushing the boundaries of spatial computing.",
-      imageUrl: "https://placehold.co/150x150/FFF/000?text=Bob", // Placeholder image URL
+      imageUrl: "https://ibb.co/Zz9B582Y", // Placeholder image URL
     },
     {
       name: "Rattana",
       role: "Unity & AR Developer",
       description:
         "He is an expert in game development and AR prototyping. His focus is on performance optimization and integrating cutting-edge AR features into projects.",
-      imageUrl: "https://placehold.co/150x150/FFF/000?text=Charlie", // Placeholder image URL
+      imageUrl: "https://ibb.co/Lzdr4S3V", // Placeholder image URL
     },
   ];
 
