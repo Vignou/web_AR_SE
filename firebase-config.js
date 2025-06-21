@@ -9,25 +9,26 @@ import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-//   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-//   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-//   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: import.meta.env.VITE_FIREBASE_APP_ID,
-//   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-// };
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCc8vQRB0NggI8-d0lUyRlQOT8XtJHFrys",
-  authDomain: "webvr-98666.firebaseapp.com",
-  projectId: "webvr-98666",
-  storageBucket: "webvr-98666.appspot.com",
-  messagingSenderId: "20845618478",
-  appId: "1:20845618478:web:f7fba6db4ea616a80e86bf",
-  measurementId: "G-4PKQPJK7KZ",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCc8vQRB0NggI8-d0lUyRlQOT8XtJHFrys",
+//   authDomain: "webvr-98666.firebaseapp.com",
+//   projectId: "webvr-98666",
+//   storageBucket: "webvr-98666.appspot.com",
+//   messagingSenderId: "20845618478",
+//   appId: "1:20845618478:web:f7fba6db4ea616a80e86bf",
+//   measurementId: "G-4PKQPJK7KZ",
+// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
