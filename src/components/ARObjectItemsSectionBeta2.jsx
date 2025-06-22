@@ -28,6 +28,7 @@ const BalloonsItemsSection = () => {
     object_description: "",
     latitude: "",
     longitude: "",
+    altitude: "", // Added altitude to formData
     imageUrl: "",
   });
 
@@ -124,6 +125,7 @@ const BalloonsItemsSection = () => {
       object_description: item.object_description || "",
       latitude: item.latitude || "",
       longitude: item.longitude || "",
+      altitude: item.altitude || 0, // Populate altitude
       imageUrl: item.image_url || "",
     });
     setIsModalOpen(true);
@@ -157,6 +159,7 @@ const BalloonsItemsSection = () => {
       if (editingItemType === "geoite") {
         updateData.latitude = parseFloat(formData.latitude);
         updateData.longitude = parseFloat(formData.longitude);
+        updateData.altitude = parseFloat(formData.altitude); // Include altitude in update data
       }
 
       await updateDoc(itemRef, updateData);
@@ -203,6 +206,7 @@ const BalloonsItemsSection = () => {
         object_description: "",
         latitude: "",
         longitude: "",
+        altitude: "", // Clear altitude after save
         imageUrl: "",
       });
     } catch (error) {
@@ -221,6 +225,7 @@ const BalloonsItemsSection = () => {
       object_description: "",
       latitude: "",
       longitude: "",
+      altitude: "", // Clear altitude on cancel
       imageUrl: "",
     });
   };
@@ -292,13 +297,13 @@ const BalloonsItemsSection = () => {
                   <img
                     src="https://img.freepik.com/free-vector/gradient-cybersickness-illustration_52683-137616.jpg?t=st=1709822343~exp=1709825943~hmac=0881dc14c662f1a3246e3294e74b779f9e552e1c063a47957aac2ac7e7005b2b&w=740"
                     alt="AR Geoite"
-                    className="h-36 w-72 object-cover rounded-t-xl"
+                    className="h-32 w-72 object-cover rounded-t-xl"
                   />
                   <div className="px-4 py-3 w-72 flex flex-col flex-grow">
                     <div className="flex-grow">
-                      <span className="text-gray-400 mr-3 uppercase text-xs">
+                      {/* <span className="text-gray-400 mr-3 uppercase text-xs">
                         AR Geoite
-                      </span>
+                      </span> */}
                       <p className="text-lg font-bold text-red-500 truncate block capitalize">
                         Geoite Name: {geoite.object_name}
                       </p>
@@ -310,6 +315,9 @@ const BalloonsItemsSection = () => {
                       </p>
                       <p className="text-base font-semibold text-black cursor-auto my-1">
                         Longitude: {geoite.longitude}
+                      </p>
+                      <p className="text-base font-semibold text-black cursor-auto my-1">
+                        Altitude: {geoite.altitude}
                       </p>
                     </div>
                     <div className="flex items-center mt-3">
@@ -342,6 +350,72 @@ const BalloonsItemsSection = () => {
           </section>
 
           {/* --- AR Markers Section (commented out as per your code) --- */}
+          {/* <h1 className="text-5xl font-extrabold text-center mt-16 mb-12 pb-4 border-b-4 border-green-700 text-green-700 mx-auto max-w-4xl">
+            Your AR Markers
+          </h1>
+          <section
+            id="Markers"
+            className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5 min-h-[300px]"
+          >
+            {loadingMarkers ? (
+              <div className="col-span-full text-center py-20">
+                <p className="text-2xl text-gray-600">
+                  Loading your AR Markers data...
+                </p>
+              </div>
+            ) : markers.length > 0 ? (
+              markers.map((marker) => (
+                <div
+                  key={marker.id}
+                  className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl h-[350px] flex flex-col"
+                >
+                  <img
+                    src={marker.image_url}
+                    alt="Marker"
+                    className="h-32 w-72 object-cover rounded-t-xl"
+                  />
+                  <div className="px-4 py-3 w-72 flex flex-col flex-grow">
+                    <div className="flex-grow">
+                      <span className="text-gray-400 mr-3 uppercase text-xs">
+                        AR Marker
+                      </span>
+                      <p className="text-lg font-bold text-green-500 truncate block capitalize">
+                        Object Name: {marker.object_name}
+                      </p>
+                      <p className="text-base font-semibold text-black cursor-auto my-1">
+                        Object Code: {marker.object_code}
+                      </p>
+                    </div>
+                    <div className="flex items-center mt-3">
+                      <div className="ml-auto">
+                        <button
+                          onClick={() => handleEdit(marker, "marker")}
+                          className="text-blue-500 mr-2 px-3 py-1 rounded-full bg-blue-100 hover:bg-blue-200"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleDelete(marker.id, "marker", marker.image_url)
+                          }
+                          className="text-red-500 px-3 py-1 rounded-full bg-red-100 hover:bg-red-200"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-20 flex items-center justify-center h-full">
+                <p className="text-2xl text-gray-600">
+                  It looks like you don't have any AR Markers yet. Time to add
+                  some!
+                </p>
+              </div>
+            )}
+          </section> */}
           {/* ... (your commented-out marker section) ... */}
         </>
       ) : (
@@ -450,6 +524,24 @@ const BalloonsItemsSection = () => {
                     id="longitude"
                     name="longitude"
                     value={formData.longitude}
+                    onChange={handleChange}
+                    step="any"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                {/* New Altitude Input Field */}
+                <div className="mb-6">
+                  <label
+                    htmlFor="altitude"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Altitude:
+                  </label>
+                  <input
+                    type="number"
+                    id="altitude"
+                    name="altitude"
+                    value={formData.altitude}
                     onChange={handleChange}
                     step="any"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

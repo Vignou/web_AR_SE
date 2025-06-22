@@ -8,40 +8,64 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // New state for error messages
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear any previous error messages
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // Sign-in successful
       setLoggedIn(true);
 
-      console.log("User signed in successfully:", auth.currentUser); // Log the current user
-      setIsModalOpen(true); // Open the modal on successful
-      navigate("/"); // Navigate to home after login
+      console.log("User signed in successfully:", auth.currentUser);
+      setIsModalOpen(true); // Open the modal on successful login
+
+      // Navigate to home after login.
+      // Consider adding a small delay or making the navigation dependent on closing the modal
+      // if you want the user to see the success message first.
+      navigate("/");
     } catch (error) {
       // Handle sign-in errors
       console.error("Error signing in:", error.message);
+      // Set specific error messages based on Firebase error codes
+      switch (error.code) {
+        case "auth/invalid-email":
+          setErrorMessage("The email address is not valid.");
+          break;
+        case "auth/user-disabled":
+          setErrorMessage("This account has been disabled.");
+          break;
+        case "auth/user-not-found":
+          setErrorMessage("No account found with this email address.");
+          break;
+        case "auth/wrong-password":
+          setErrorMessage("Incorrect password. Please try again.");
+          break;
+        case "auth/invalid-credential": // Often used for general incorrect email/password
+          setErrorMessage("Invalid email or password.");
+          break;
+        default:
+          setErrorMessage(
+            "Login failed. Please check your credentials and try again."
+          );
+      }
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // Redirect the user to the home page here
+    // If you had a delayed navigation, it would go here.
   };
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-          <div>
-            <img
-              src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-              className="w-32 mx-auto"
-              alt="Logo"
-            />
-          </div>
+          <div></div>
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <div className="w-full flex-1 mt-8">
@@ -55,6 +79,7 @@ const LoginPage = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required // Added required attribute
                   />
                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -62,7 +87,14 @@ const LoginPage = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required // Added required attribute
                   />
+                  {/* Error Message Display */}
+                  {errorMessage && (
+                    <p className="text-red-500 text-center mt-4 text-sm font-medium">
+                      {errorMessage}
+                    </p>
+                  )}
                   <button
                     className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     type="submit"
@@ -123,6 +155,12 @@ const LoginPage = () => {
                               <h3 className="text-lg leading-6 font-medium text-gray-900">
                                 Login Success!
                               </h3>
+                              <div className="mt-2">
+                                <p className="text-sm text-gray-500">
+                                  You've successfully logged in. Redirecting to
+                                  the homepage...
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -140,7 +178,7 @@ const LoginPage = () => {
                   </div>
                 )}
                 <p className="mt-6 text-xs text-gray-600 text-center">
-                  Dont have an account?&nbsp;
+                  Don't have an account?&nbsp;
                   <Link
                     to="/signup"
                     className="border-b border-gray-500 border-dotted"

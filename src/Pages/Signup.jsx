@@ -11,39 +11,72 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controls the success modal visibility
+  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // Clear any previous error messages
 
+    // Client-side password mismatch check
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setErrorMessage("Passwords do not match. Please try again.");
       return;
     }
 
     try {
+      // 1. Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
+      // 2. Update the user's profile with the provided username
       await updateProfile(userCredential.user, {
         displayName: username,
       });
-      console.log("User registered successfully:", userCredential.user);
-      setIsModalOpen(true); // Open the modal on successful registration
 
-      // After successful registration, navigate to the login page
-      navigateTo("/login"); // Replace "/login" with the actual path to your login page
+      console.log("User registered successfully:", userCredential.user);
+      setIsModalOpen(true); // Open the success modal
+
+      // The navigation will now happen *after* the user closes the modal
+      // or after a brief delay if you prefer an automatic redirect.
+      // For this implementation, navigation happens when the modal is closed.
     } catch (error) {
       console.error("Error registering user:", error);
-      // Handle the error (e.g., show an error message).
+      // Handle Firebase specific errors and provide user-friendly messages
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setErrorMessage(
+            "This email is already in use. Please use a different email or log in."
+          );
+          break;
+        case "auth/invalid-email":
+          setErrorMessage("The email address is not valid.");
+          break;
+        case "auth/operation-not-allowed":
+          setErrorMessage(
+            "Email/password accounts are not enabled in Firebase."
+          );
+          break;
+        case "auth/weak-password":
+          setErrorMessage(
+            "Password is too weak. It must be at least 6 characters long."
+          );
+          break;
+        default:
+          setErrorMessage(
+            "An unexpected error occurred during signup. Please try again later."
+          );
+      }
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // Redirect the user to the home page here
+    // Navigate to home page after modal is closed
+    navigateTo("/");
   };
 
   return (
@@ -51,13 +84,7 @@ const Signup = () => {
       <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
         <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
           <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-            <div>
-              <img
-                src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-                className="w-32 mx-auto"
-                alt="Logo"
-              />
-            </div>
+            <div></div>
             <div className="mt-12 flex flex-col items-center">
               <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
               <div className="w-full flex-1 mt-8">
@@ -70,6 +97,7 @@ const Signup = () => {
                       placeholder="Username"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      required
                     />
                     <input
                       className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -77,13 +105,15 @@ const Signup = () => {
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                     <input
                       className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Password (min 6 characters)"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      required
                     />
                     <input
                       className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
@@ -91,7 +121,14 @@ const Signup = () => {
                       placeholder="Confirm Password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
                     />
+                    {/* Error Message Display */}
+                    {errorMessage && (
+                      <p className="text-red-500 text-center mt-4 text-sm font-medium">
+                        {errorMessage}
+                      </p>
+                    )}
                     <button
                       type="submit"
                       className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
@@ -114,60 +151,44 @@ const Signup = () => {
                       <span className="ml-3">Sign Up</span>
                     </button>
                   </form>
+
+                  {/* Success Modal */}
                   {isModalOpen && (
-                    <div className="fixed z-10 inset-0 overflow-y-auto">
-                      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div
-                          className="fixed inset-0 transition-opacity"
-                          aria-hidden="true"
-                        >
-                          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                      <div className="bg-white p-6 rounded-lg shadow-xl w-96 max-w-lg text-center">
+                        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                          <svg
+                            className="h-10 w-10 text-green-600"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
                         </div>
-                        <span
-                          className="hidden sm:inline-block sm:align-middle sm:h-screen"
-                          aria-hidden="true"
+                        <h2 className="text-2xl font-bold mb-3 text-green-700">
+                          Registration Successful!
+                        </h2>
+                        <p className="text-gray-700 mb-6">
+                          Your account has been successfully created. You can
+                          now log in and explore our features!
+                        </p>
+                        <button
+                          onClick={closeModal}
+                          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out"
                         >
-                          &#8203;
-                        </span>
-                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <div className="sm:flex sm:items-start">
-                              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg
-                                  className="h-6 w-6 text-green-600"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </div>
-                              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                  Signup Success!
-                                </h3>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button
-                              onClick={closeModal}
-                              type="button"
-                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                            >
-                              Close
-                            </button>
-                          </div>
-                        </div>
+                          Continue to Home
+                        </button>
                       </div>
                     </div>
                   )}
+
                   <p className="mt-6 text-xs text-gray-600 text-center">
                     I agree to abide by templatana's
                     <a
