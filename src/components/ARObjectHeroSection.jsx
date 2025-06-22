@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const ARObjectHeroSection = () => {
   const [displayName, setDisplayName] = useState(null);
@@ -86,9 +87,10 @@ const ARObjectHeroSection = () => {
 
             {/* <!-- Buttons --> */}
             <div className="text-center">
-              <a
+              <Link
+                to="/profile"
                 className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 dark:focus:ring-offset-gray-800"
-                href="#"
+                scroll={true} // Add this prop to enable scrolling to top
               >
                 Get started
                 <svg
@@ -105,7 +107,7 @@ const ARObjectHeroSection = () => {
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
-              </a>
+              </Link>
             </div>
             {/* <!-- End Buttons --> */}
           </div>

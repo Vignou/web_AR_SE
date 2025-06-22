@@ -14,6 +14,7 @@ import CreateARPage from "./Pages/CreateARPage";
 import ARObjectsPage from "./Pages/ARObjectsPage";
 import Signup from "./Pages/Signup";
 import MakeARPage from "./Pages/MakeARPage";
+import ProfilePage from "./Pages/ProfilePage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,6 +32,7 @@ function App() {
           <Route path="/create" element={<CreateARPage />} />
           <Route path="/make" element={<MakeARPage />} />
           <Route path="/arobjects" element={<ARObjectsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
