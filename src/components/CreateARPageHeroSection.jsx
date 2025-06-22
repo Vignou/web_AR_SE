@@ -14,25 +14,26 @@ const CreateARPageHeroSection = () => {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-neutral-content">
           <div className="max-w-md text-center">
-            <h1 className="text-4xl tracking-tight font-extrabold t text-gray-200 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl tracking-tight font-extrabold t text-yellow-300 sm:text-5xl md:text-6xl">
               <span className="block xl:inline">Start your Journey </span>
-              <span className="block text-indigo-600 xl:inline">
+              <span className="block text-pink-700 xl:inline">
                 with Location-Based AR
               </span>
             </h1>
-            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 pb-5">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+            <p className="mt-3 text-base text-gray-50 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 pb-5">
+              Transform your surroundings into an interactive canvas. Create
+              immersive experiences tied to real-world locations, from games to
+              guided tours. Explore the possibilities of augmented reality
+              around you.
             </p>
             {/* <!-- Button Section --> */}
             {/* <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"> */}
-            <button className="btn btn-primary mr-4 sm:mr-8 px-8 py-3 bg-blue-500 text-white rounded-md">
+            {/* <button className="btn btn-primary mr-4 sm:mr-8 px-8 py-3 bg-blue-500 text-white rounded-md">
               Get Started
             </button>
             <button className="btn btn-secondary px-8 py-3 bg-red-500 text-white rounded-md">
               Get Started
-            </button>
+            </button> */}
             {/* </div> */}
           </div>
         </div>

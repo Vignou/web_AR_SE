@@ -76,6 +76,19 @@ const CreateARSectionBeta4 = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // Define your allowed object codes
+  const allowedObjectCodes = [
+    "dog",
+    "lion",
+    "lady",
+    "eagle",
+    "deity",
+    "balarama",
+    "rama",
+    "tree",
+    "vishnu",
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -92,6 +105,12 @@ const CreateARSectionBeta4 = () => {
 
     if (!objectName.trim()) {
       alert("Please enter a name for your object.");
+      return;
+    }
+
+    if (!objectCode) {
+      // If objectCode is an empty string (from the default option)
+      alert("Please select an Object Code from the list.");
       return;
     }
 
@@ -198,13 +217,21 @@ const CreateARSectionBeta4 = () => {
                 >
                   Object Code
                 </label>
-                <input
-                  type="text"
+                <select
                   id="object-code"
                   value={objectCode}
                   onChange={(e) => setObjectCode(e.target.value)}
                   className="w-full bg-white rounded border border-gray-300 py-1 px-3"
-                />
+                >
+                  <option value="">-- Select an Object Code --</option>{" "}
+                  {/* Optional default option */}
+                  {allowedObjectCodes.map((code) => (
+                    <option key={code} value={code}>
+                      {code.charAt(0).toUpperCase() + code.slice(1)}{" "}
+                      {/* Capitalize for display */}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="relative mb-4">
@@ -220,6 +247,7 @@ const CreateARSectionBeta4 = () => {
                   onChange={(e) => setObjectDescription(e.target.value)}
                   className="w-full bg-white rounded border border-gray-300 py-1 px-3"
                   rows="3"
+                  placeholder="Describe this AR Object..."
                 />
               </div>
 
