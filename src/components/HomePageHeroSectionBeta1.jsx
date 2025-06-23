@@ -20,7 +20,7 @@ const HomePageHeroSectionBeta1 = () => {
   // To get the embed URL: Go to your YouTube video -> click "Share" -> "Embed" -> Copy the src from the <iframe> tag.
   // Example for a real video: "http://www.youtube.com/embed/YOUR_VIDEO_ID"
   // For the 'rickroll' link you previously provided, the embed URL is:
-  const youtubeEmbedUrl = "https://youtu.be/qsh7ttnp3RU?si=42Id8NYhNXjkePnP"; // This is the actual embed URL for "Never Gonna Give You Up"
+  const youtubeEmbedUrl = "https://www.youtube.com/watch?v=qsh7ttnp3RU"; // This is the actual embed URL for "Never Gonna Give You Up"
 
   return (
     <div>
