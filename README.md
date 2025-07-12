@@ -1,4 +1,3 @@
-````markdown
 # 🌐 LocationAR: Geospatial Augmented Reality Web App Unleash Digital Creations in the Real World!
 
 LocationAR is an innovative web application that bridges the gap between the digital and physical realms, allowing users to deploy and experience augmented reality (AR) objects at specific geographical locations. By leveraging precise longitude and latitude coordinates, you can transform any spot on the map into an interactive AR canvas.
@@ -106,4 +105,3 @@ Happy AR Deploying!
 ---
 
 Made with ❤️ for a world augmented.
-````
