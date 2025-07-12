@@ -43,8 +43,8 @@ Follow these steps to get your own LocationAR instance up and running.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/your-username/LocationAR.git](https://github.com/your-username/LocationAR.git)
-    cd LocationAR
+    git clone https://github.com/Vignou/web_AR_SE.git
+    cd web_AR_SE
     ```
 
 2.  **Install dependencies:**
