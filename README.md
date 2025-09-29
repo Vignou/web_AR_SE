@@ -102,7 +102,7 @@ Once the application is running:
 
 Happy AR Deploying!
 
-## AR Unity:
+## Main AR Unity:
 [AR Unity Project Repository (Pisetha)](https://github.com/Pheng-AN/AR-ITE-RUPP)
 
 ---
